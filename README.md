@@ -74,33 +74,31 @@ pass this to other VMs you'll be provisioning
 and then on your ansible do ```ssh-copy-id root@192.168.10.x0```
 
 #### Within one of your VMs (web/aws/db)
-	- sudo passwd root to change password
-	- cd /etc/ssh
-	- sudo nano sshd_config
-	- uncomment and change "PermitRootLogin" to "PermitRootLogin yes"
-	- change "PubKeyAuthentication" to  "PubKeyAuthentication yes" 
-	- "PasswordAuthentication yes"
-	- ```sudo service sshd restart```
+* sudo passwd root to change password
+* cd /etc/ssh
+* sudo nano sshd_config
+* uncomment and change "PermitRootLogin" to "PermitRootLogin yes"
+* change "PubKeyAuthentication" to  "PubKeyAuthentication yes" 
+* "PasswordAuthentication yes"
+* ```sudo service sshd restart```
 #### Back in your ansible:
-	- you should be able to ssh into it 
-	- ```ansible all -m ping```
-	- ```sudo ssh root@192.168.10.10```
+* you should be able to ssh into it 
+* ```ansible all -m ping```
+* ```sudo ssh root@192.168.10.10```
 
 ##### Creating your playbook:
-	- A playbook allows you to provision (setup and configure) an agent node in the network (another machine)
-	- But first you must let Ansible know which machines or hosts you wish to provision using the playbook
-	- to do this, go to the directory: /etc/ansible/
-	- open up the hosts file using your favourite editor
-	- add the following lines to it:
-		- 	```
+* A playbook allows you to provision (setup and configure) an agent node in the network (another machine)
+* But first you must let Ansible know which machines or hosts you wish to provision using the playbook
+* to do this, go to the directory: /etc/ansible/
+* open up the hosts file using your favourite editor
+* add the following lines to it:
+		* 	```
 			[web]
 			192.168.10.10 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=$
 			[db]
 			192.168.10.20 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=$
 			[aws]
 			192.168.10.30 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=$
-
-
 			```
 
 
