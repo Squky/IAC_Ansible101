@@ -92,14 +92,16 @@ and then on your ansible do ```ssh-copy-id root@192.168.10.x0```
 * to do this, go to the directory: /etc/ansible/
 * open up the hosts file using your favourite editor
 * add the following lines to it:
-		* 	```
-			[web]
-			192.168.10.10 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=$
-			[db]
-			192.168.10.20 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=$
-			[aws]
-			192.168.10.30 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=$
-			```
-
+ ```
+[web]
+192.168.10.10 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=$
+[db]
+192.168.10.20 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=$
+[aws]
+192.168.10.30 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=$
+```
+* Within your ansible machine, create a playbook.yml file and copy and paste the contents of this repo's playbook.yml into it
+* Make sure it is copied correctly and there aren't any indentation issues.
+* Run the playbook using the command: ```ansible-playbook playbook.yml ```. Make sure you are in the same directory as your playbook. 
 
 
