@@ -23,6 +23,7 @@ Vagrant.configure("2") do |config|
     web.vm.network "private_network", ip: "192.168.10.10"
     # assigning a hostname for the vm
     web.vm.hostname = "web"
+    web.vm.synced_folder "app", "/home/ubuntu/app"
 
     #assigning a hostname for browser access
     web.hostsupdater.aliases = ["development.local"]

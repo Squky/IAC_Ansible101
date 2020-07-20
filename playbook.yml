@@ -17,14 +17,59 @@
 # Every task should have a name, which is included in the output from running the playbook
 # The goal of each task is to execute a module, with very specific arguments.
 
+#  - name: copy app folder in
+#    copy:
+#      src: /home/ubuntu/app
+#      dest: /home/ubuntu/app
+
   - name: Install nginx
   # we are installing nginx on our web server
 
     apt: pkg=nginx state=present
     notify:
     - restart nginx
-    - name: Enable nginx during boot
-      service: name=nginx  state=started enabled=yes
+
+  - name: Enable nginx during boot
+    service: name=nginx  state=started enabled=yes
+
+  - name: Install git
+    apt: pkg=git state=present
+
+  - name: Install python
+    apt : pkg=python state=present
+
+  - name: Install Node
+    shell: |
+      curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+
+  - name: Install node part 2
+    apt: pkg=nodejs state=present
+
+  - name: Install NPM
+    apt:
+     name: npm
+     state: present
+
+
+  - name: Install PM2
+    npm:
+      name: pm2
+      global: yes
+
+
+#  - name: stop app
+#    command: pm2 stop app.js
+#    args:
+#      chdir: /home/ubuntu/app
+
+  - name: start app
+    command: pm2 start app.js
+    args:
+      chdir: /home/ubuntu/app
+  - name: Setup Env Var DB_HOST
+    shell: echo 'export DB_HOST=mongodb://192.168.10.20:27017/posts' >> ~/.bashrc
+
   handlers:
           - name: restart nginx
             service: name=nginx state=restarted
+

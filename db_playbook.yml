@@ -1,0 +1,11 @@
+
+---
+- hosts: db
+  
+  gather_facts: yes
+
+  become: true
+
+  tasks:
+
+  - name: Provision MongoDB
