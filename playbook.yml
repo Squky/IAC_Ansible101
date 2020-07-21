@@ -45,10 +45,13 @@
   - name: Install node part 2
     apt: pkg=nodejs state=present
 
-  - name: Install NPM
-    apt:
-     name: npm
-     state: present
+  - name: apt get update
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+#  - name: Install NPM
+#    apt:
+#     name: npm
+#     state: present
 
 
   - name: Install PM2
@@ -62,14 +65,17 @@
 #    args:
 #      chdir: /home/ubuntu/app
 
-  - name: start app
-    command: pm2 start app.js
-    args:
-      chdir: /home/ubuntu/app
+#  - name: start app
+#    command: pm2 start app.js
+#    args:
+#      chdir: /home/ubuntu/app
+
   - name: Setup Env Var DB_HOST
     shell: echo 'export DB_HOST=mongodb://192.168.10.20:27017/posts' >> ~/.bashrc
+    become: yes
+    become_user: vagrant
+
 
   handlers:
           - name: restart nginx
             service: name=nginx state=restarted
-

@@ -55,6 +55,7 @@ Vagrant.configure("2") do |config|
     ans.vm.box = "ubuntu/bionic64"
     ans.vm.network "private_network", ip: "192.168.10.40"
     ans.vm.hostname = "ans"
+    ans.vm.synced_folder "app", "/home/ubuntu/app"
     ans.hostsupdater.aliases = ["development.ans"]
   end
 
